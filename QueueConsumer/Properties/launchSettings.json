@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "QueueConsumer": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}
