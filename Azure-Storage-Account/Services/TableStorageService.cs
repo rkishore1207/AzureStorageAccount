@@ -6,17 +6,11 @@ namespace Azure_Storage_Account.Services
 {
     public class TableStorageService : ITableStorageService
     {
-        private readonly IConfiguration _configuration;
         private const string TABLE = "Attendees";
-        private string? StorageConnectionString = Environment.GetEnvironmentVariable("StorageAccount");
-        public TableStorageService(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
 
         private async Task<TableClient> GetTableClient()
         {
-            var tableServiceClient = new TableServiceClient(StorageConnectionString);
+            var tableServiceClient = new TableServiceClient(Constant.Constant.StorageConnectionString);
             var tableClient = tableServiceClient.GetTableClient(TABLE);
             await tableClient.CreateIfNotExistsAsync();
             return tableClient;
