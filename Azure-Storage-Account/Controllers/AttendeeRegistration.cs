@@ -1,4 +1,5 @@
 ﻿using Azure_Storage_Account.Data;
+using Azure_Storage_Account.Models;
 using Azure_Storage_Account.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,13 @@ namespace Azure_Storage_Account.Controllers
     {
         private readonly ITableStorageService _tableStorageService;
         private readonly IBlobStorageService _blobStorageService;
+        private readonly IQueueStorageService _queueStorageService;
 
-        public AttendeeRegistration(ITableStorageService tableStorageService, IBlobStorageService blobStorageService)
+        public AttendeeRegistration(ITableStorageService tableStorageService, IBlobStorageService blobStorageService, IQueueStorageService queueStorageService)
         {
             _tableStorageService = tableStorageService;
             _blobStorageService = blobStorageService;
+            _queueStorageService = queueStorageService;
         }
 
         // GET: AttendeeRegistration
@@ -56,6 +59,16 @@ namespace Azure_Storage_Account.Controllers
                 else
                     attendee.ImageName = "default.jpg";
                 await _tableStorageService.UpsertAttendee(attendee);
+
+                var emailMessage = new EmailMessage()
+                {
+                    EmailAddress = attendee.Email,
+                    TimeStamp = DateTime.Now,
+                    Message = $"Hello {attendee.FirstName} {attendee.SecondName}, Your Registration of Attendee is Successfully Completed"
+                };
+
+                await _queueStorageService.SendMail(emailMessage);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
