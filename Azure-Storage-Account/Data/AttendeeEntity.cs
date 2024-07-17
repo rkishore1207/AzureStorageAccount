@@ -9,6 +9,7 @@ namespace Azure_Storage_Account.Data
         public string? SecondName { get; set; }
         public string? Email { get; set; }
         public string? Industry { get; set; } // Our own Partition key, this should be present in all Models
+        public string? ImageName { get; set; }
         public string? PartitionKey {  get; set; }
         public string? RowKey { get; set; }
         public DateTimeOffset? Timestamp { get; set; }

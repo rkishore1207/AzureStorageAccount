@@ -10,6 +10,7 @@ namespace Azure_Storage_Account
 
             // Add services to the container.
             builder.Services.AddScoped<ITableStorageService, TableStorageService>();
+            builder.Services.AddScoped<IBlobStorageService, BlobStorageService>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
