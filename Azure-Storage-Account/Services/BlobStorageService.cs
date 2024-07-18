@@ -6,10 +6,18 @@ namespace Azure_Storage_Account.Services
     public class BlobStorageService : IBlobStorageService
     {
         private string ContainerName = "attendeeimages";
+        private readonly string? _connectionString;
+        private readonly IConfiguration _configuration;
+
+        public BlobStorageService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _connectionString = _configuration.GetConnectionString("AzureStorage:BlobName");
+        }
         private async Task<BlobContainerClient> GetBlobContainerClient()
         {
 
-            BlobContainerClient blobContainer = new BlobContainerClient(Constant.Constant.StorageConnectionString, ContainerName);
+            BlobContainerClient blobContainer = new BlobContainerClient(_connectionString,ContainerName);
             await blobContainer.CreateIfNotExistsAsync();
             return blobContainer;
         }
