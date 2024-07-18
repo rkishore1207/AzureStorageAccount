@@ -6,7 +6,7 @@ namespace Azure_Storage_Account.Services
     {
         Task DeleteAttendee(string industry, string id);
         Task<AttendeeEntity> GetAttendee(string industry, string id);
-        Task<List<AttendeeEntity>> GetAttendees();
+        List<AttendeeEntity> GetAttendees();
         Task UpsertAttendee(AttendeeEntity attendeeEntity);
     }
 }
