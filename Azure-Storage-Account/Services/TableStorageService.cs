@@ -14,13 +14,13 @@ namespace Azure_Storage_Account.Services
             _tableClient = tableClient;
         }
 
-        private async Task<TableClient> GetTableClient()
-        {
-            var tableServiceClient = new TableServiceClient(Constant.Constant.StorageConnectionString);
-            var tableClient = tableServiceClient.GetTableClient(TABLE);
-            await tableClient.CreateIfNotExistsAsync();
-            return tableClient;
-        }
+        //private async Task<TableClient> GetTableClient()
+        //{
+        //    var tableServiceClient = new TableServiceClient(Constant.Constant.StorageConnectionString);
+        //    var tableClient = tableServiceClient.GetTableClient(TABLE);
+        //    await tableClient.CreateIfNotExistsAsync();
+        //    return tableClient;
+        //}
 
         public async Task<AttendeeEntity> GetAttendee(string industry, string id) //Partition Key is required to fetch or delete Entity
         {

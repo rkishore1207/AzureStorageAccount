@@ -7,12 +7,10 @@ namespace Azure_Storage_Account.Services
     {
         private string ContainerName = "attendeeimages";
         private readonly string? _connectionString;
-        private readonly IConfiguration _configuration;
 
         public BlobStorageService(IConfiguration configuration)
         {
-            _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("AzureStorage:BlobName");
+            _connectionString = configuration.GetValue<string>("AzureStorage:ConnectionString");
         }
         private async Task<BlobContainerClient> GetBlobContainerClient()
         {
