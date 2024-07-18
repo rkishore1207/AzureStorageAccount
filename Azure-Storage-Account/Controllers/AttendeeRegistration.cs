@@ -21,7 +21,7 @@ namespace Azure_Storage_Account.Controllers
         // GET: AttendeeRegistration
         public async Task<ActionResult> Index()
         {
-            var data = await _tableStorageService.GetAttendees();
+            var data = _tableStorageService.GetAttendees();
             foreach (var attendee in data)
             {
                 if(attendee.ImageName != null)
